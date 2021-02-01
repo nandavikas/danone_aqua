@@ -2,7 +2,6 @@
 
 <head>
     <!-- Load plotly.js into the DOM -->
-<!--     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 </head>
 
@@ -20,26 +19,11 @@
         var previousIsoString = startdate.toISOString();
         console.log(currentIsoString)
         console.log(previousIsoString)
-        // var settings = {
-        //     "url": targetUrl,
-        //     "method": "POST",
-        //     "timeout": 0,
-        //     "headers": {
-        //         "Content-Type": "application/json",
-        //         "x-auth-token": "ee375ae0c803da6e8581178c839d23029dec57a50c6ac45733102677a148afff",
-        //         "Access-Control-Allow-Origin": true
-        //     },
-        //     "data": JSON.stringify({ "functionName": "postDataToWidget", "args": { "state": { "widgetBuilder": false, "currentPage": 1, "activeTab": "custom", "date": [currentIsoString, previousIsoString] }, "interval": `${currentIsoString}/${previousIsoString}` } }),
-        // };
-
-        // $.ajax(settings).done(function (response) {
-        //     console.log(response);
-        // });
+        
+        // API call to get data and layout
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("x-auth-token", "ee375ae0c803da6e8581178c839d23029dec57a50c6ac45733102677a148afff");
-        // myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-        // myHeaders.append('Access-Control-Allow-Credentials', 'true');
 
         var raw = JSON.stringify({ "functionName": "postDataToWidget", "args": { "state": { "widgetBuilder": false, "currentPage": 1, "activeTab": "custom", "date": [currentIsoString, previousIsoString] }, "interval": `${currentIsoString}/${previousIsoString}` } });
 
@@ -52,7 +36,10 @@
 
         fetch(targetUrl, requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => {
+            console.log(result)
+            console.log(typeof result)
+        })
             .catch(error => console.log('error', error));
         var data = [{
             values: [19, 26, 55],
