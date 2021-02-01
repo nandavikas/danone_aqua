@@ -40,6 +40,11 @@
             console.log(result)
             result = JSON.parse(result)
             console.log(result)
+            if(result.data.mapboxAccessToken){
+                Plotly.setPlotConfig({
+                    mapboxAccessToken: result.data.mapboxAccessToken
+                })
+            }
             Plotly.newPlot('myDiv', result.data.data, result.data.layout);
         })
             .catch(error => console.log('error', error));
