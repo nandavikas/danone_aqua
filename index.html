@@ -20,40 +20,40 @@
         var previousIsoString = startdate.toISOString();
         console.log(currentIsoString)
         console.log(previousIsoString)
-        var settings = {
-            "url": targetUrl,
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json",
-                "x-auth-token": "ee375ae0c803da6e8581178c839d23029dec57a50c6ac45733102677a148afff",
-                "Access-Control-Allow-Origin": true
-            },
-            "data": JSON.stringify({ "functionName": "postDataToWidget", "args": { "state": { "widgetBuilder": false, "currentPage": 1, "activeTab": "custom", "date": [currentIsoString, previousIsoString] }, "interval": `${currentIsoString}/${previousIsoString}` } }),
-        };
+        // var settings = {
+        //     "url": targetUrl,
+        //     "method": "POST",
+        //     "timeout": 0,
+        //     "headers": {
+        //         "Content-Type": "application/json",
+        //         "x-auth-token": "ee375ae0c803da6e8581178c839d23029dec57a50c6ac45733102677a148afff",
+        //         "Access-Control-Allow-Origin": true
+        //     },
+        //     "data": JSON.stringify({ "functionName": "postDataToWidget", "args": { "state": { "widgetBuilder": false, "currentPage": 1, "activeTab": "custom", "date": [currentIsoString, previousIsoString] }, "interval": `${currentIsoString}/${previousIsoString}` } }),
+        // };
 
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        });
-        // var myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
-        // myHeaders.append("x-auth-token", "ee375ae0c803da6e8581178c839d23029dec57a50c6ac45733102677a148afff");
+        // $.ajax(settings).done(function (response) {
+        //     console.log(response);
+        // });
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("x-auth-token", "ee375ae0c803da6e8581178c839d23029dec57a50c6ac45733102677a148afff");
         // myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:3000');
         // myHeaders.append('Access-Control-Allow-Credentials', 'true');
 
-        // var raw = JSON.stringify({ "functionName": "postDataToWidget", "args": { "state": { "widgetBuilder": false, "currentPage": 1, "activeTab": "custom", "date": [currentIsoString, previousIsoString] }, "interval": `${currentIsoString}/${previousIsoString}` } });
+        var raw = JSON.stringify({ "functionName": "postDataToWidget", "args": { "state": { "widgetBuilder": false, "currentPage": 1, "activeTab": "custom", "date": [currentIsoString, previousIsoString] }, "interval": `${currentIsoString}/${previousIsoString}` } });
 
-        // var requestOptions = {
-        //     method: 'POST',
-        //     headers: myHeaders,
-        //     body: raw,
-        //     redirect: 'follow'
-        // };
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
 
-        // fetch(targetUrl, requestOptions)
-        //     .then(response => response.text())
-        //     .then(result => console.log(result))
-        //     .catch(error => console.log('error', error));
+        fetch(targetUrl, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
         var data = [{
             values: [19, 26, 55],
             labels: ['Residential', 'Non-Residential', 'Utility'],
