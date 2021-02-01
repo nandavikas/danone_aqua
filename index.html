@@ -52,7 +52,7 @@
 
         fetch(targetUrl, requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => console.log(result.data))
             .catch(error => console.log('error', error));
         var data = [{
             values: [19, 26, 55],
