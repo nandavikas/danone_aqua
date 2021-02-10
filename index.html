@@ -10,39 +10,20 @@
         <!-- Plotly chart will be drawn inside this DIV -->
     </div>
     <script>
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = "https://app.yellowmessenger.com/api/data/functions/execute?bot=x1612155574013&botType=sandbox"
-        var date = new Date();
-        var currentIsoString = date.toISOString();
-        var startdate = new Date(date);
-        startdate.setMinutes(date.getMinutes() - 1)
-        var previousIsoString = startdate.toISOString();
-        console.log(currentIsoString)
-        console.log(previousIsoString)
-        
-        // API call to get data and layout
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("x-auth-token", "ee375ae0c803da6e8581178c839d23029dec57a50c6ac45733102677a148afff");
-
-        var raw = JSON.stringify({ "functionName": "postDataToWidget", "args": { "state": { "widgetBuilder": false, "currentPage": 1, "activeTab": "custom", "date": [currentIsoString, previousIsoString] }, "interval": `${currentIsoString}/${previousIsoString}` } });
-
         var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+               method: 'GET',
+               redirect: 'follow'
+             };
 
-        fetch(targetUrl, requestOptions)
-            .then(response => response.text())
-            .then(result => {
-            console.log(result)
-            result = JSON.parse(result)
-            console.log(result)
-            if(result.data.mapboxAccessToken){
-                Plotly.setPlotConfig({
-                    mapboxAccessToken: result.data.mapboxAccessToken
+   fetch("https://fb-business-manager-updates.herokuapp.com/danone?env=sandbox&bot=x1612155574013", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+      console.log(result)
+      result = JSON.parse(result)
+      console.log(result)
+      if(result.data.mapboxAccessToken){
+      Plotly.setPlotConfig({
+      mapboxAccessToken: result.data.mapboxAccessToken
                 })
             }
             Plotly.newPlot('myDiv', result.data.data, result.data.layout);
